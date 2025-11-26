@@ -34,7 +34,7 @@ public class ActivityController implements ControllerInterface {
 		System.out.print("작성자 입력: ");
 		String writer = sc.nextLine();
 
-		System.out.print("날짜 입력(예: 2025-01-01): ");
+		System.out.print("날짜 입력(예: 25/01/01): ");
 		String date = sc.nextLine();
 
 		System.out.print("현재 인원수 입력: ");
