@@ -1,20 +1,18 @@
 package dto;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 public class ActivityDTO {
-	private Integer activity_id;
+	private int activityId;
 	private String title;
 	private String writer;
-	private String activity_date;
-	private Integer total_people;
+	private String activityDate;
+	private int totalPeople;
 	private String description;
-	private Integer max;
+	private int max;
 }

@@ -6,12 +6,13 @@ import dto.ActivityDTO;
 
 public class ActivityView {
 	public static void menu() {
-		System.out.println("====================================================================================");
+		System.out.println("=====================================Activity Menu================================");
 		System.out.println();
 		System.out.println("0.이전");
-		System.out.println("1.액티비티 모집글 목록 조회");
+		System.out.println("1.액티비티 생성");
+		System.out.println("2.액티비티 모집글 목록 조회");
 		System.out.println();
-		System.out.println("====================================================================================");
+		System.out.println("========================================================================================");
 	}
 	
 	public static void print(String message) {
@@ -44,20 +45,15 @@ public class ActivityView {
 
 	    // 데이터 출력
 	    System.out.printf("│ %-3s │ %-20s │ %-7s │ %-10s │ %-6s │ %-6s │%n",
-	            activityDTO.getActivity_id(),
-	            truncate(activityDTO.getTitle(), 20),
+	            activityDTO.getActivityId(),
+	            activityDTO.getTitle(),
 	            activityDTO.getWriter(),
-	            activityDTO.getActivity_date(),
-	            activityDTO.getTotal_people(),
+	            activityDTO.getActivityDate(),
+	            activityDTO.getTotalPeople(),
 	            activityDTO.getMax());
 	    
 	    System.out.println("------------------------------------------------------------------------------------");
 	    System.out.println("------------------------------------------------------------------------------------");
 	}
 
-	// 제목이 길 경우 잘라주는 함수
-	private static String truncate(String str, int maxLength) {
-	    if (str.length() <= maxLength) return str;
-	    return str.substring(0, maxLength - 3) + "...";
-	}
 }
