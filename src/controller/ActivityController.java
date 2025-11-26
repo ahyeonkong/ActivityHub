@@ -1,30 +1,46 @@
 package controller;
 
 import java.util.Scanner;
-
 import dao.ActivityDAO;
 import dto.ActivityDTO;
+import service.ActivityService;
+import view.ActivityView;
 
 public class ActivityController implements ControllerInterface {
 
+	Scanner sc = new Scanner(System.in);
+	ActivityService activityService = new ActivityService();
+
 	@Override
 	public void execute(Scanner sc) {
-
-		System.out.println("===== Activity Menu =====");
-		System.out.println("1. 액티비티 생성");
-		System.out.println("0. 뒤로가기");
-		System.out.print("메뉴 선택 >> ");
-
-		int choice = Integer.parseInt(sc.nextLine());
-
-		switch (choice) {
-		case 1 -> createActivity(sc);
-		case 0 -> System.out.println("이전 메뉴로 돌아갑니다.");
-		default -> System.out.println("잘못된 번호입니다.");
+		this.sc = sc;
+		boolean isStop = false;
+		while (!isStop) {
+			ActivityView.menu();
+			System.out.print("메뉴를 선택하세요. >> ");
+			try {
+				int job = Integer.parseInt(sc.nextLine());
+				switch (job) {
+				case 0 -> {
+					System.out.println("이전 메뉴로 돌아갑니다.");
+					isStop = true;
+				}
+				case 1 -> {
+					createActivity(sc);
+				}
+				case 2 -> {
+					f_select_list();
+				}
+				default -> {
+					ActivityView.print("잘못 선택했습니다.");
+				}
+				}
+			} catch (NumberFormatException e) {
+				ActivityView.print("숫자를 입력하세요.");
+			}
 		}
 	}
 
-	// ⭐ 이 부분이 DAO insert 테스트 부분!!
 	private void createActivity(Scanner sc) {
 		System.out.println("\n=== 액티비티 생성 ===");
 
@@ -55,5 +71,9 @@ public class ActivityController implements ControllerInterface {
 		} else {
 			System.out.println("액티비티 등록 실패...");
 		}
+	}
+
+	private void f_select_list() {
+		ActivityView.print(activityService.selectList());
 	}
 }
