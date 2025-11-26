@@ -25,6 +25,8 @@ public class FrontController {
 				}
 				case 1 -> {
 					controllerInterface = new ActivityController();
+					ActivityController.f_insert();
+					//ActivityController.f_update();
 				}
 				case 2 -> {
 					controllerInterface = new CommentController();
