@@ -1,9 +1,6 @@
-package common;
+package controller;
 
 import java.util.Scanner;
-
-import controller.ActivityController;
-import controller.CommentController;
 
 public class FrontController {
 	public static void main(String[] args) {
