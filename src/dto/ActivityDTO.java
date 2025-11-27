@@ -15,6 +15,14 @@ public class ActivityDTO {
 	private Integer total_people;
 	private String description;
 	private Integer max;
+	
+	private int activityId;
+	//private String title;
+	//private String writer;
+	private String activityDate;
+	private int totalPeople;
+	//private String description;
+	//private int max;
 }
 
 

@@ -9,11 +9,11 @@ public class FrontController {
 
 		boolean isStop = false;
 		while (!isStop) {
-			System.out.println("====================MENU====================");
+			System.out.println("========================================MENU========================================");
 			System.out.println();
 			System.out.println("0.종료 | 1.Activity | 2.Comments");
 			System.out.println();
-			System.out.println("============================================");
+			System.out.println("====================================================================================");
 			System.out.print("메뉴를 선택하세요. >> ");
 			try {
 				int job = Integer.parseInt(sc.nextLine());
@@ -26,7 +26,7 @@ public class FrontController {
 				case 1 -> {
 					controllerInterface = new ActivityController();
 					//ActivityController.f_insert();
-					ActivityController.f_update();
+					//ActivityController.f_update();
 				}
 				case 2 -> {
 					controllerInterface = new CommentController();

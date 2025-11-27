@@ -1,6 +1,5 @@
 package util;
 
-//package com.shinhan.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,51 +10,50 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+
+
 public class DBUtil {
 
-	public static Connection dbConnect() {	
-		Connection conn=null;
-			
-		Properties pro = new Properties();
-		String path = "oracleAhpdb.properties";
-		
-		InputStream is = DBUtil.class.getResourceAsStream(path);
+	public static Connection dbConnect() {
+		Connection conn = null;
+
 		try {
-			pro.load(is);
-			String driver = pro.getProperty("driver");
-			//System.out.println(driver);
-			String url = pro.getProperty("url");    //"jdbc:oracle:thin:@//localhost:1521/MYPDB";
-			//System.out.println(url);
-			String id = pro.getProperty("username"); //"ah";
-			String pass = pro.getProperty("password");//"ah";		
+			Properties prop = new Properties();
+
+			// ⭐ db.properties 불러오기 (NPE 안나는 방식)
+			InputStream input = DBUtil.class.getClassLoader().getResourceAsStream("util/db.properties");
+			if (input == null) {
+				System.out.println("db.properties 파일을 불러올 수 없습니다!");
+				return null;
+			}
+			prop.load(input);
+
+			String driver = prop.getProperty("driver");
+			String url = prop.getProperty("url");
+			String id = prop.getProperty("username");
+			String pw = prop.getProperty("password");
+
 			Class.forName(driver);
-			conn = DriverManager.getConnection(url, id, pass);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			conn = DriverManager.getConnection(url, id, pw);
+
+		} catch (Exception e) {
+			System.out.println("DB 연결 실패!");
 			e.printStackTrace();
 		}
 		return conn;
-		
 	}
 
-
-	public static void dbDisconnect(Connection conn, Statement st, ResultSet rs) {
+	public static void dbDisconnect(Connection conn, Statement stmt, ResultSet rs) {
 		try {
-			if(rs!=null) rs.close();
-			if(st!=null) st.close();
-			if(conn!=null) conn.close();
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		
+		}
 	}
-	
 }
 

@@ -1,5 +1,15 @@
 package dto;
 
-public class CommentDTO {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CommentDTO {
+	private int commentId;
+	private int activityId;
+	private String nickname;
+	private String content;
 }

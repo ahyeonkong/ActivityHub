@@ -1,20 +1,52 @@
 package controller;
 
 import java.util.Scanner;
+import dao.ActivityDAO;
+import dto.ActivityDTO;
+import service.ActivityService;
+import view.ActivityView;
 
 import dto.ActivityDTO;
 import service.ActivityService;
 
 public class ActivityController implements ControllerInterface {
 	static Scanner sc = new Scanner(System.in);
-
+	ActivityService activityService = new ActivityService();
 
 	@Override
 	public void execute(Scanner sc) {
-		// TODO Auto-generated method stub
-		
+		this.sc = sc;
+		boolean isStop = false;
+		while (!isStop) {
+			ActivityView.menu();
+			System.out.print("메뉴를 선택하세요. >> ");
+			try {
+				int job = Integer.parseInt(sc.nextLine());
+				switch (job) {
+				case 0 -> {
+					System.out.println("이전 메뉴로 돌아갑니다.");
+					isStop = true;
+				}
+				case 1 -> {
+					f_insert();
+				}
+				case 2 -> {
+					f_select_list();
+				}
+				case 4 -> {
+					f_update();
+				}
+				default -> {
+					ActivityView.print("잘못 선택했습니다.");
+				}
+				}
+			} catch (NumberFormatException e) {
+				ActivityView.print("숫자를 입력하세요.");
+			}
+		}
 	}
 
+//<<<<<<< HEAD
 	public static void f_update() {
 		ActivityDTO act = new ActivityDTO();
 		act = keyboard_insertForUpdate();
@@ -81,4 +113,11 @@ public class ActivityController implements ControllerInterface {
 		return act;
 	}
 
+//=======
+
+
+	private void f_select_list() {
+		ActivityView.print(activityService.selectList());
+	}
+//>>>>>>> b4b475c3d8a749a539e8d6fadbc50829e0188104
 }
