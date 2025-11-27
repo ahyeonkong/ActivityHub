@@ -6,9 +6,11 @@ import dto.ActivityDTO;
 import service.ActivityService;
 import view.ActivityView;
 
-public class ActivityController implements ControllerInterface {
+import dto.ActivityDTO;
+import service.ActivityService;
 
-	Scanner sc = new Scanner(System.in);
+public class ActivityController implements ControllerInterface {
+	static Scanner sc = new Scanner(System.in);
 	ActivityService activityService = new ActivityService();
 
 	@Override
@@ -26,13 +28,15 @@ public class ActivityController implements ControllerInterface {
 					isStop = true;
 				}
 				case 1 -> {
-					createActivity(sc);
+					f_insert();
 				}
 				case 2 -> {
 					f_select_list();
 				}
 				case 3 -> {
 					f_select_detail_list();
+				case 4 -> {
+					f_update();
 				}
 				default -> {
 					ActivityView.print("잘못 선택했습니다.");
@@ -51,36 +55,66 @@ public class ActivityController implements ControllerInterface {
 		ActivityView.print(activityService.selectByActivityId(activityId));
 	}
 
-	private void createActivity(Scanner sc) {
-		System.out.println("\n=== 액티비티 생성 ===");
+	public static void f_update() {
+		ActivityDTO act = new ActivityDTO();
+		act = keyboard_insertForUpdate();
+		
+		ActivityService.updateService(act);
+		String message = ActivityService.updateService(act);
+	}
 
-		System.out.print("제목 입력: ");
+	public static void f_insert() {
+		ActivityDTO act = keyboard_insert();
+		String message = ActivityService.insertService(act);
+	}
+
+	private static ActivityDTO keyboard_insert() {
+		ActivityDTO act = new ActivityDTO();
+		System.out.print("제목입력>>");//뷰로 대체 ㄱㄱ
 		String title = sc.nextLine();
-
-		System.out.print("작성자 입력: ");
+		
+		System.out.print("작성자입력");
 		String writer = sc.nextLine();
+		
+		
+		System.out.print("본문");
+		String description = sc.nextLine();
+		
+		System.out.print("최대 인원수 입력>>");
+		int max = sc.nextInt();
+	    sc.nextLine(); // 버퍼 비우기
 
-		System.out.print("날짜 입력(예: 25/01/01): ");
-		String date = sc.nextLine();
-
-		System.out.print("현재 인원수 입력: ");
-		int total = Integer.parseInt(sc.nextLine());
-
-		System.out.print("설명 입력: ");
-		String desc = sc.nextLine();
-
-		System.out.print("최대 모집 인원 입력(max): ");
-		int max = Integer.parseInt(sc.nextLine());
-
-		ActivityDTO dto = new ActivityDTO(0, title, writer, date, total, desc, max);
-
-		int result = ActivityDAO.getInstance().insert(dto);
-
-		if (result > 0) {
-			System.out.println("액티비티 등록 성공!");
-		} else {
-			System.out.println("액티비티 등록 실패...");
-		}
+		
+		act.setTitle(title);
+		act.setWriter(writer);
+		act.setDescription(description);
+		act.setMax(max);
+		
+		return act;
+	}
+	
+	private static ActivityDTO keyboard_insertForUpdate() {
+		ActivityDTO act = new ActivityDTO();
+		
+		System.out.print("게시물 아이디 입력>> ");
+		int activity_id = sc.nextInt();
+		sc.nextLine();
+		
+		System.out.print("제목입력>>");//뷰로 대체 ㄱㄱ
+		String title = sc.nextLine();
+		
+		System.out.print("본문");
+		String description = sc.nextLine();
+		
+		System.out.print("최대 인원수 입력>>");
+		int max = sc.nextInt();
+		
+		act.setActivity_id(activity_id);
+		act.setTitle(title);
+		act.setDescription(description);
+		act.setMax(max);
+		
+		return act;
 	}
 
 	private void f_select_list() {
