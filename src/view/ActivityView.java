@@ -6,11 +6,13 @@ import dto.ActivityDTO;
 
 public class ActivityView {
 	public static void menu() {
+
 		System.out.println("=====================================Activity Menu================================");
 		System.out.println();
 		System.out.println("0.이전");
 		System.out.println("1.액티비티 생성");
 		System.out.println("2.액티비티 모집글 목록 조회");
+		System.out.println("4. 액티비티 수정");
 		System.out.println();
 		System.out.println("========================================================================================");
 	}
