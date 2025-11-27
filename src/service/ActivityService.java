@@ -19,16 +19,16 @@ public class ActivityService {
 	}
 
 
+	public ActivityDTO selectByActivityId(int activityId) {
+		return activityDAO.selectByActivityId(activityId);
+	}
 
 	public static String updateService(ActivityDTO act) {
-		// TODO Auto-generated method stub
-		// return ActivityDAO.update(act);
 		return ActivityDAO.update(act);
 
 	}
 
 	public static String insertService(ActivityDTO act) {
-		// TODO Auto-generated method stub
 		return ActivityDAO.insert(act);
 
 }
