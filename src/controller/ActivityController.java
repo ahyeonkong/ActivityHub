@@ -34,11 +34,11 @@ public class ActivityController implements ControllerInterface {
 					f_select_list();
 				}
 
-				case 3 -> {
+				case 4 -> {
 					deleteActivity(sc);
 				}
 
-				case 4 -> {
+				case 5 -> {
 					f_update();
 
 				}
