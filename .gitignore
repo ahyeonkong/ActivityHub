@@ -1,5 +1,6 @@
 /bin/
 oracleDB.properties
+db.properties
 .classpath
 .project
 .settings/

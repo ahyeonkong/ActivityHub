@@ -6,7 +6,7 @@ import dto.ActivityDTO;
 public class ActivityService {
 
 //	public static void updateService(ActivityDTO act) {
-	public static Object updateService(int act) {
+	public static String updateService(ActivityDTO act) {
 		// TODO Auto-generated method stub
 		//return ActivityDAO.update(act);
 		return ActivityDAO.update(act);

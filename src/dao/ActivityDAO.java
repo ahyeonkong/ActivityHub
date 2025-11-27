@@ -52,7 +52,7 @@ public class ActivityDAO {
 	}
 	
 
-	public static Object update(int act) {
+	public static String update(ActivityDTO act) {
 		String message = null;
 		Connection conn = null;
 		PreparedStatement st = null;
@@ -61,9 +61,10 @@ public class ActivityDAO {
 		sql = """
 				UPDATE activity
 				SET
-					title = ?,
+					title = ?||'  ('||sysdate||'에 수정됨)',
 					activity_date= trunc(sysdate),
-					description = ?
+					description = ?,
+					max = ?
 				WHERE activity_id = ?
 				""";
 
@@ -71,10 +72,10 @@ public class ActivityDAO {
 		try {
 			st = conn.prepareStatement(sql);
 
-			// st.setInt(1, att.getEmpno());
-			st.setString(1, "제목바꿈");
-			st.setString(2, "내용바꿈");
-			st.setInt(3, 3);
+			st.setString(1, act.getTitle());
+			st.setString(2, act.getDescription());
+			st.setInt(3,act.getMax());
+			st.setInt(4,act.getActivity_id());
 
 			st.executeUpdate();
 			message = "메세지~~~";
