@@ -1,21 +1,23 @@
 package view;
 
+import java.util.List;
+
 import dto.CommentDTO;
 
 public class CommentView {
 
-	public void printCreateResult(int result) {
-		if (result > 0) {
-			System.out.println(" 댓글이 성공적으로 등록되었습니다!");
-		} else {
-			System.out.println(" 댓글 등록에 실패했습니다.");
-		}
-	}
+	public static void printComments(List<CommentDTO> list) {
 
-	public void printComment(CommentDTO dto) {
-		System.out.println("----------------------");
-		System.out.println("닉네임: " + dto.getNickname());
-		System.out.println("내용: " + dto.getContent());
-		System.out.println("----------------------");
+		System.out.println("\n===== 댓글 목록 =====");
+
+		if (list == null || list.isEmpty()) {
+			System.out.println("댓글이 없습니다.");
+			return;
+		}
+
+		for (CommentDTO dto : list) {
+			System.out.println("[" + dto.getCommentId() + "] " + dto.getNickname() + " : " + dto.getContent());
+		}
+		System.out.println("=====================\n");
 	}
 }
