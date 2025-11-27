@@ -15,15 +15,6 @@ public class ActivityDAO {
 		Connection conn = null;
 		PreparedStatement st = null;
 		String sql = """
-				insert into emp(
-				empno,
-				ename,
-				phone,
-				deptno,
-				password
-				)values(?,?,?,?,?)
-				""";
-		sql = """
 				INSERT INTO ACTIVITY
 				(activity_id, title, writer, activity_date, total_people, description, max)
 				VALUES (ACTIVITY_SEQ.NEXTVAL, ?, ?, sysdate, ?, ?, ?)
