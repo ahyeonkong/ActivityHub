@@ -13,11 +13,11 @@ public class ActivityService {
 		return activityDAO.selectList();
 	}
 
-<<<<<<< HEAD
+
 	public int delete(int id) {
 		return activityDAO.delete(id);
 	}
-=======
+
 
 
 	public static String updateService(ActivityDTO act) {
@@ -30,18 +30,7 @@ public class ActivityService {
 	public static String insertService(ActivityDTO act) {
 		// TODO Auto-generated method stub
 		return ActivityDAO.insert(act);
->>>>>>> origin/develop
+
 }
 }
-//import java.util.List;
-//
-//import dao.ActivityDAO;
-//import dto.ActivityDTO;
-//
-//public class ActivityService {
-//	private ActivityDAO activityDAO = new ActivityDAO();
-//
-//	public List<ActivityDTO> selectList(){
-//		return activityDAO.selectList();
-//	}>>>>>>>b4b475c3d8a749a539e8d6fadbc50829e0188104
-//}
+

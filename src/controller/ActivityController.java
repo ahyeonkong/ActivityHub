@@ -33,13 +33,14 @@ public class ActivityController implements ControllerInterface {
 				case 2 -> {
 					f_select_list();
 				}
-<<<<<<< HEAD
+
 				case 3 -> {
 					deleteActivity(sc);
-=======
+				}
+
 				case 4 -> {
 					f_update();
->>>>>>> origin/develop
+
 				}
 				default -> {
 					ActivityView.print("잘못 선택했습니다.");
@@ -48,10 +49,9 @@ public class ActivityController implements ControllerInterface {
 			} catch (NumberFormatException e) {
 				ActivityView.print("숫자를 입력하세요.");
 			}
-		}
+			}
 	}
 
-<<<<<<< HEAD
 	private void deleteActivity(Scanner sc) {
 		System.out.println("\n=== 액티비티 삭제 ===");
 		System.out.print("삭제할 Activity ID 입력: ");
@@ -71,25 +71,24 @@ public class ActivityController implements ControllerInterface {
 		}
 	}
 
-	private void createActivity(Scanner sc) {
-		System.out.println("\n=== 액티비티 생성 ===");
-=======
-//<<<<<<< HEAD
+
+
+
 	public static void f_update() {
 		ActivityDTO act = new ActivityDTO();
 		act = keyboard_insertForUpdate();
 		
 		ActivityService.updateService(act);
 		String message = ActivityService.updateService(act);
-		//ActivityView.print(message);
->>>>>>> origin/develop
+
+
 
 	}
 
 	public static void f_insert() {
 		ActivityDTO act = keyboard_insert();
 		String message = ActivityService.insertService(act);
-		//ActivityView.print(message);
+
 		
 	}
 
@@ -142,11 +141,11 @@ public class ActivityController implements ControllerInterface {
 		return act;
 	}
 
-//=======
+
 
 
 	private void f_select_list() {
 		ActivityView.print(activityService.selectList());
 	}
-//>>>>>>> b4b475c3d8a749a539e8d6fadbc50829e0188104
+
 }

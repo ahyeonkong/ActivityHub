@@ -164,32 +164,6 @@ public class ActivityDAO {
 		return DriverManager.getConnection(url, username, password);
 	}
 
-	// ---------------------------------------------
-	// ⭐ 액티비티 생성(Create)
-	// ---------------------------------------------
-<<<<<<< HEAD
-	public int insert(ActivityDTO dto) {
-		String sql = "INSERT INTO ACTIVITY "
-				+ "(activity_id, title, writer, activity_date, total_people, description, max) "
-				+ "VALUES (ACTIVITY_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-
-		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-			pstmt.setString(1, dto.getTitle());
-			pstmt.setString(2, dto.getWriter());
-			pstmt.setString(3, dto.getActivityDate());
-			pstmt.setInt(4, dto.getTotalPeople());
-			pstmt.setString(5, dto.getDescription());
-			pstmt.setInt(6, dto.getMax());
-
-			return pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
-
 	public int delete(int activityId) {
 		String sql = "DELETE FROM ACTIVITY WHERE activity_id = ?";
 
@@ -204,27 +178,6 @@ public class ActivityDAO {
 		}
 	}
 
-=======
-//	public int insert(ActivityDTO dto) {
-//		String sql = "INSERT INTO ACTIVITY "
-//				+ "(activity_id, title, writer, activity_date, total_people, description, max) "
-//				+ "VALUES (ACTIVITY_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-//
-//		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//
-//			pstmt.setString(1, dto.getTitle());
-//			pstmt.setString(2, dto.getWriter());
-//			pstmt.setString(3, dto.getActivityDate());
-//			pstmt.setInt(4, dto.getTotalPeople());
-//			pstmt.setString(5, dto.getDescription());
-//			pstmt.setInt(6, dto.getMax());
-//
-//			return pstmt.executeUpdate();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return 0;
-//		}
-//	}
->>>>>>> origin/develop
+
+
 }
