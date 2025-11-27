@@ -1,14 +1,18 @@
 package controller;
 
+import java.util.List;
 import java.util.Scanner;
-import dao.ActivityDAO;
 import dto.ActivityDTO;
+import dto.CommentDTO;
 import service.ActivityService;
+import service.CommentService;
 import view.ActivityView;
+import view.CommentView;
 
 public class ActivityController implements ControllerInterface {
 	static Scanner sc = new Scanner(System.in);
 	ActivityService activityService = new ActivityService();
+	private CommentService commentService = new CommentService();
 
 	@Override
 	public void execute(Scanner sc) {
@@ -72,7 +76,11 @@ public class ActivityController implements ControllerInterface {
 		System.out.print("조회할 액티비티 ID>> ");
 		int activityId = sc.nextInt();
 		sc.nextLine();
+		
+		List<CommentDTO> list = commentService.getComments(activityId);
+
 		ActivityView.print(activityService.selectByActivityId(activityId));
+		CommentView.printComments(list); // 댓글까지 조회
 	}
 
 	public static void f_update() {
@@ -125,6 +133,7 @@ public class ActivityController implements ControllerInterface {
 
 		System.out.print("최대 인원수 입력>>");
 		int max = sc.nextInt();
+		sc.nextLine();
 
 		act.setActivity_id(activity_id);
 		act.setTitle(title);

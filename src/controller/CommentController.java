@@ -1,11 +1,8 @@
 package controller;
 
 import java.util.Scanner;
-import java.util.List;
-
 import dto.CommentDTO;
 import service.CommentService;
-import view.CommentView;
 
 public class CommentController implements ControllerInterface {
 
@@ -16,7 +13,6 @@ public class CommentController implements ControllerInterface {
 		while (true) {
 			System.out.println("\n===== 댓글 메뉴 =====");
 			System.out.println("1. 댓글 작성");
-			System.out.println("2. 댓글 조회");
 			System.out.println("0. 뒤로가기");
 			System.out.print("메뉴 선택 >> ");
 
@@ -24,7 +20,6 @@ public class CommentController implements ControllerInterface {
 
 			switch (menu) {
 			case 1 -> insertComment(sc);
-			case 2 -> showComments(sc);
 			case 0 -> {
 				return;
 			}
@@ -51,14 +46,5 @@ public class CommentController implements ControllerInterface {
 			System.out.println("댓글 등록 성공!");
 		else
 			System.out.println("댓글 등록 실패!");
-	}
-
-	private void showComments(Scanner sc) {
-		System.out.print("조회할 Activity ID 입력: ");
-		int activityId = Integer.parseInt(sc.nextLine());
-
-		List<CommentDTO> list = service.getComments(activityId);
-
-		CommentView.printComments(list);
 	}
 }
