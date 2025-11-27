@@ -33,6 +33,8 @@ public class ActivityController implements ControllerInterface {
 				case 2 -> {
 					f_select_list();
 				}
+				case 3 -> {
+					f_select_detail_list();
 				case 4 -> {
 					f_update();
 				}
@@ -46,22 +48,24 @@ public class ActivityController implements ControllerInterface {
 		}
 	}
 
-//<<<<<<< HEAD
+	private void f_select_detail_list() {
+		System.out.print("조회할 액티비티 ID>> ");
+		int activityId = sc.nextInt();
+		sc.nextLine();
+		ActivityView.print(activityService.selectByActivityId(activityId));
+	}
+
 	public static void f_update() {
 		ActivityDTO act = new ActivityDTO();
 		act = keyboard_insertForUpdate();
 		
 		ActivityService.updateService(act);
 		String message = ActivityService.updateService(act);
-		//ActivityView.print(message);
-
 	}
 
 	public static void f_insert() {
 		ActivityDTO act = keyboard_insert();
 		String message = ActivityService.insertService(act);
-		//ActivityView.print(message);
-		
 	}
 
 	private static ActivityDTO keyboard_insert() {
@@ -113,11 +117,7 @@ public class ActivityController implements ControllerInterface {
 		return act;
 	}
 
-//=======
-
-
 	private void f_select_list() {
 		ActivityView.print(activityService.selectList());
 	}
-//>>>>>>> b4b475c3d8a749a539e8d6fadbc50829e0188104
 }

@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import dto.ActivityDTO;
 
 public class ActivityDAO {
+	private static final String SQL_SELECT_LIST = "SELECT activity_id, title, writer, activity_date, "
+			+ "total_people, max FROM ACTIVITY ORDER BY activity_id ASC";
+	private static final String SQL_SELECT_BY_ACTIVITY_ID = "SELECT * FROM ACTIVITY WHERE activity_id = ? ORDER BY activity_id ASC";
 	
 	//액티비티 모집글 작성
 	public static String insert(ActivityDTO act) {
@@ -91,10 +94,6 @@ public class ActivityDAO {
 		}
 		return message;
 	}
-//=======
-
-
-
 
 	private static final String SQL_SELECT_LIST = "SELECT activity_id, title, writer, activity_date, total_people, max FROM ACTIVITY";
 
@@ -123,6 +122,7 @@ public class ActivityDAO {
 
 	}
 
+	// 모든 액티비티 조회용
 	private ActivityDTO makeActivity(ResultSet rs) throws SQLException {
 		ActivityDTO activityDTO = new ActivityDTO();
 		activityDTO.setActivityId(rs.getInt("activity_id"));
@@ -131,6 +131,19 @@ public class ActivityDAO {
 		activityDTO.setActivityDate(rs.getString("activity_date"));
 		activityDTO.setTotalPeople(rs.getInt("total_people"));
 		activityDTO.setMax(rs.getInt("max"));
+		return activityDTO;
+	}
+
+	// 특정 액티비티 조회용
+	private ActivityDTO makeActivityID(ResultSet rs) throws SQLException {
+		ActivityDTO activityDTO = new ActivityDTO();
+		activityDTO.setActivityId(rs.getInt("activity_id"));
+		activityDTO.setTitle(rs.getString("title"));
+		activityDTO.setWriter(rs.getString("writer"));
+		activityDTO.setActivityDate(rs.getString("activity_date"));
+		activityDTO.setTotalPeople(rs.getInt("total_people"));
+		activityDTO.setMax(rs.getInt("max"));
+		activityDTO.setDescription(rs.getString("description"));
 		return activityDTO;
 	}
 
@@ -167,6 +180,50 @@ public class ActivityDAO {
 	// ---------------------------------------------
 	// ⭐ 액티비티 생성(Create)
 	// ---------------------------------------------
+	public int insert(ActivityDTO dto) {
+		String sql = "INSERT INTO ACTIVITY "
+				+ "(activity_id, title, writer, activity_date, total_people, description, max) "
+				+ "VALUES (ACTIVITY_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getWriter());
+			pstmt.setString(3, dto.getActivityDate());
+			pstmt.setInt(4, dto.getTotalPeople());
+			pstmt.setString(5, dto.getDescription());
+			pstmt.setInt(6, dto.getMax());
+
+			return pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	// 특정 액티비티 게시글 조회
+	public ActivityDTO selectByActivityId(int activityId) {
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		ActivityDTO activityDTO = null;
+
+		try {
+			conn = DBUtil.dbConnect();
+			st = conn.prepareStatement(SQL_SELECT_BY_ACTIVITY_ID);
+			st.setInt(1, activityId);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				activityDTO = makeActivityID(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return activityDTO;
+	}
 //	public int insert(ActivityDTO dto) {
 //		String sql = "INSERT INTO ACTIVITY "
 //				+ "(activity_id, title, writer, activity_date, total_people, description, max) "
