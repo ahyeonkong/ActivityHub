@@ -11,6 +11,7 @@ public class ActivityView {
 		System.out.println("0.이전");
 		System.out.println("1.액티비티 생성");
 		System.out.println("2.액티비티 모집글 목록 조회");
+		System.out.println("3.액티비티 삭제");
 		System.out.println();
 		System.out.println("========================================================================================");
 	}

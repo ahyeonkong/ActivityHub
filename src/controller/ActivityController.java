@@ -31,6 +31,9 @@ public class ActivityController implements ControllerInterface {
 				case 2 -> {
 					f_select_list();
 				}
+				case 3 -> {
+					deleteActivity(sc);
+				}
 				default -> {
 					ActivityView.print("잘못 선택했습니다.");
 				}
@@ -38,6 +41,25 @@ public class ActivityController implements ControllerInterface {
 			} catch (NumberFormatException e) {
 				ActivityView.print("숫자를 입력하세요.");
 			}
+		}
+	}
+
+	private void deleteActivity(Scanner sc) {
+		System.out.println("\n=== 액티비티 삭제 ===");
+		System.out.print("삭제할 Activity ID 입력: ");
+
+		try {
+			int id = Integer.parseInt(sc.nextLine());
+			int result = activityService.delete(id);
+
+			if (result > 0) {
+				System.out.println("액티비티 삭제 완료!");
+			} else {
+				System.out.println("삭제 실패! 존재하지 않는 ID입니다.");
+			}
+
+		} catch (NumberFormatException e) {
+			System.out.println("숫자를 입력해야 합니다.");
 		}
 	}
 

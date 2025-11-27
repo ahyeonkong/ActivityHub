@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import dto.ActivityDTO;
 
-
 public class ActivityDAO {
 	private static final String SQL_SELECT_LIST = "SELECT activity_id, title, writer, activity_date, total_people, max FROM ACTIVITY";
 
@@ -107,4 +106,19 @@ public class ActivityDAO {
 			return 0;
 		}
 	}
+
+	public int delete(int activityId) {
+		String sql = "DELETE FROM ACTIVITY WHERE activity_id = ?";
+
+		try (Connection conn = DBUtil.dbConnect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setInt(1, activityId);
+			return pstmt.executeUpdate(); 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 }
