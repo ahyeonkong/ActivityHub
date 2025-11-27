@@ -13,6 +13,12 @@ public class ActivityService {
 		return activityDAO.selectList();
 	}
 
+
+	public int delete(int id) {
+		return activityDAO.delete(id);
+	}
+
+
 	public ActivityDTO selectByActivityId(int activityId) {
 		return activityDAO.selectByActivityId(activityId);
 	}
@@ -24,5 +30,7 @@ public class ActivityService {
 
 	public static String insertService(ActivityDTO act) {
 		return ActivityDAO.insert(act);
+
 }
 }
+
