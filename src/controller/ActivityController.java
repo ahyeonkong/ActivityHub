@@ -31,6 +31,9 @@ public class ActivityController implements ControllerInterface {
 				case 2 -> {
 					f_select_list();
 				}
+				case 3 -> {
+					f_select_detail_list();
+				}
 				default -> {
 					ActivityView.print("잘못 선택했습니다.");
 				}
@@ -39,6 +42,13 @@ public class ActivityController implements ControllerInterface {
 				ActivityView.print("숫자를 입력하세요.");
 			}
 		}
+	}
+
+	private void f_select_detail_list() {
+		System.out.print("조회할 액티비티 ID>> ");
+		int activityId = sc.nextInt();
+		sc.nextLine();
+		ActivityView.print(activityService.selectByActivityId(activityId));
 	}
 
 	private void createActivity(Scanner sc) {

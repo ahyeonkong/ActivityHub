@@ -12,10 +12,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import dto.ActivityDTO;
-
+import oracle.net.aso.c;
 
 public class ActivityDAO {
-	private static final String SQL_SELECT_LIST = "SELECT activity_id, title, writer, activity_date, total_people, max FROM ACTIVITY";
+	private static final String SQL_SELECT_LIST = "SELECT activity_id, title, writer, activity_date, "
+			+ "total_people, max FROM ACTIVITY ORDER BY activity_id ASC";
+	private static final String SQL_SELECT_BY_ACTIVITY_ID = "SELECT * FROM ACTIVITY WHERE activity_id = ? ORDER BY activity_id ASC";
 
 	// 모든 액티비티 게시글 조회
 	public List<ActivityDTO> selectList() {
@@ -50,6 +52,18 @@ public class ActivityDAO {
 		activityDTO.setActivityDate(rs.getString("activity_date"));
 		activityDTO.setTotalPeople(rs.getInt("total_people"));
 		activityDTO.setMax(rs.getInt("max"));
+		return activityDTO;
+	}
+
+	private ActivityDTO makeActivityID(ResultSet rs) throws SQLException {
+		ActivityDTO activityDTO = new ActivityDTO();
+		activityDTO.setActivityId(rs.getInt("activity_id"));
+		activityDTO.setTitle(rs.getString("title"));
+		activityDTO.setWriter(rs.getString("writer"));
+		activityDTO.setActivityDate(rs.getString("activity_date"));
+		activityDTO.setTotalPeople(rs.getInt("total_people"));
+		activityDTO.setMax(rs.getInt("max"));
+		activityDTO.setDescription(rs.getString("description"));
 		return activityDTO;
 	}
 
@@ -106,5 +120,27 @@ public class ActivityDAO {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+
+	public ActivityDTO selectByActivityId(int activityId) {
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		ActivityDTO activityDTO = null;
+
+		try {
+			conn = DBUtil.dbConnect();
+			st = conn.prepareStatement(SQL_SELECT_BY_ACTIVITY_ID);
+			st.setInt(1, activityId);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				activityDTO = makeActivityID(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return activityDTO;
 	}
 }
