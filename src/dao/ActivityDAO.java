@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import dto.ActivityDTO;
-import oracle.net.aso.c;
 
 public class ActivityDAO {
 	private static final String SQL_SELECT_LIST = "SELECT activity_id, title, writer, activity_date, "
@@ -44,6 +43,7 @@ public class ActivityDAO {
 
 	}
 
+	// 모든 액티비티 조회용
 	private ActivityDTO makeActivity(ResultSet rs) throws SQLException {
 		ActivityDTO activityDTO = new ActivityDTO();
 		activityDTO.setActivityId(rs.getInt("activity_id"));
@@ -55,6 +55,7 @@ public class ActivityDAO {
 		return activityDTO;
 	}
 
+	// 특정 액티비티 조회용
 	private ActivityDTO makeActivityID(ResultSet rs) throws SQLException {
 		ActivityDTO activityDTO = new ActivityDTO();
 		activityDTO.setActivityId(rs.getInt("activity_id"));
@@ -122,6 +123,7 @@ public class ActivityDAO {
 		}
 	}
 
+	// 특정 액티비티 게시글 조회
 	public ActivityDTO selectByActivityId(int activityId) {
 		Connection conn = null;
 		PreparedStatement st = null;
